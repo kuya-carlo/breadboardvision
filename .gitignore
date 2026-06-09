@@ -1,0 +1,28 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Local database file and SQLite temporary logs
+db/*.sqlite
+db/*.sqlite-journal
+db/*.sqlite-shm
+db/*.sqlite-wal
+*.sqlite
+
+# Environment configuration
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
