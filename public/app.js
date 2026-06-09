@@ -102,7 +102,7 @@ async function startWebcam() {
     state.webcamStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
     els.video.srcObject = state.webcamStream;
     els.cameraContainer.classList.remove('hide');
-    els.webcamBtn.innerHTML = '<i class="fa-solid fa-camera-rotate"></i> Stop Camera';
+    els.webcamBtn.innerHTML = '<span class="material-icons" style="font-size: 18px; margin-right: 6px; vertical-align: middle;">flip_camera_ios</span>Stop Camera';
   } catch (err) {
     alert('Webcam access denied or unavailable: ' + err.message);
   }
@@ -114,7 +114,7 @@ function stopWebcam() {
     state.webcamStream = null;
   }
   els.cameraContainer.classList.add('hide');
-  els.webcamBtn.innerHTML = '<i class="fa-solid fa-camera"></i> Use Webcam';
+  els.webcamBtn.innerHTML = '<span class="material-icons" style="font-size: 18px; margin-right: 6px; vertical-align: middle;">photo_camera</span>Use Webcam';
 }
 
 function captureSnapshot() {
@@ -205,10 +205,11 @@ function renderAnalysis(analysis) {
     analysis.status === 'warning' ? 'Circuit Review Recommended' :
     'Critical Wiring Errors Detected';
   
-  els.feedbackStatusIcon.className = 'fa-solid ' + (
-    analysis.status === 'correct' ? 'fa-circle-check' :
-    analysis.status === 'warning' ? 'fa-circle-question' :
-    'fa-circle-exclamation'
+  els.feedbackStatusIcon.className = 'material-icons';
+  els.feedbackStatusIcon.textContent = (
+    analysis.status === 'correct' ? 'check_circle' :
+    analysis.status === 'warning' ? 'warning' :
+    'error'
   );
 
   // 3. Components Tags
@@ -247,7 +248,7 @@ function renderAnalysis(analysis) {
       item.className = 'checklist-item';
       
       item.innerHTML = `
-        <div class="checklist-checkbox"><i class="fa-solid fa-check"></i></div>
+        <div class="checklist-checkbox"><span class="material-icons" style="font-size: 12px; color: #ffffff;">check</span></div>
         <p class="checklist-text">${step}</p>
       `;
       
@@ -261,7 +262,7 @@ function renderAnalysis(analysis) {
     const successItem = document.createElement('div');
     successItem.className = 'checklist-item checked';
     successItem.innerHTML = `
-      <div class="checklist-checkbox"><i class="fa-solid fa-check"></i></div>
+      <div class="checklist-checkbox"><span class="material-icons" style="font-size: 12px; color: #ffffff;">check</span></div>
       <p class="checklist-text">Everything looks perfect. No modifications required.</p>
     `;
     els.checklistContainer.appendChild(successItem);
@@ -305,12 +306,12 @@ function renderHistoryList() {
     card.innerHTML = `
       <div class="history-card-header">
         <span class="history-type-badge">
-          <i class="fa-solid ${item.type === 'image' ? 'fa-image' : 'fa-code'}"></i> ${item.type}
+          <span class="material-icons" style="font-size: 12px; margin-right: 4px; vertical-align: middle;">${item.type === 'image' ? 'image' : 'description'}</span> ${item.type}
         </span>
         <span class="history-time">${timeStr}</span>
       </div>
       <div class="history-status-indicator ${item.status}">
-        <i class="fa-solid ${item.status === 'correct' ? 'fa-circle-check' : 'fa-circle-exclamation'}"></i>
+        <span class="material-icons" style="font-size: 14px; margin-right: 4px; vertical-align: middle;">${item.status === 'correct' ? 'check_circle' : 'error'}</span>
         <span>${item.status.toUpperCase()}</span>
       </div>
       <p class="history-summary">${

@@ -27,7 +27,7 @@ The JSON object must have this structure:
 // Helper to query Gemini API
 async function queryGemini(parts) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey || apiKey === 'YOUR_GEMINI_API_KEY' || apiKey === 'your_actual_api_key_here') {
+  if (process.env.NODE_ENV === 'test' || !apiKey || apiKey === 'YOUR_GEMINI_API_KEY' || apiKey === 'your_actual_api_key_here') {
     throw new Error('MISSING_API_KEY');
   }
 

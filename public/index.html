@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons -->
-  <script src="https://kit.fontawesome.com/0c13a9f144.js" crossorigin="anonymous"></script>
+  <!-- Google Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Stylesheets -->
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -18,13 +18,15 @@
     <!-- Header -->
     <header class="app-header">
       <div class="logo-area">
-        <i class="fa-solid fa-microchip glowing-icon"></i>
+        <span class="material-icons glowing-icon">bolt</span>
         <h1>BreadboardVision</h1>
-        <span class="badge" id="mode-badge"><i class="fa-solid fa-circle-nodes"></i> AI Tutor Mode</span>
+        <span class="badge" id="mode-badge">
+          <span class="material-icons" style="font-size: 14px; margin-right: 4px;">smart_toy</span>AI Tutor Mode
+        </span>
       </div>
       <div class="header-controls">
         <div class="session-info">
-          <i class="fa-solid fa-user-graduate"></i>
+          <span class="material-icons" style="font-size: 16px; margin-right: 6px; color: var(--accent-purple);">school</span>
           <span>Session ID: <strong id="display-session-id">Loading...</strong></span>
         </div>
       </div>
@@ -36,19 +38,23 @@
       <!-- Column 1: Inputs & Judge Panel -->
       <section class="panel-card input-control-panel">
         <div class="panel-header">
-          <h2><i class="fa-solid fa-sliders"></i> Diagnostic Input</h2>
+          <h2><span class="material-icons" style="color: var(--accent-purple); margin-right: 8px;">settings</span>Diagnostic Input</h2>
         </div>
         
         <!-- Toggle Tabs -->
         <div class="tab-buttons">
-          <button class="tab-btn active" data-tab="image"><i class="fa-solid fa-image"></i> Image Upload</button>
-          <button class="tab-btn" data-tab="netlist"><i class="fa-solid fa-code"></i> Text Netlist</button>
+          <button class="tab-btn active" data-tab="image">
+            <span class="material-icons" style="font-size: 18px; margin-right: 6px;">image</span>Image Upload
+          </button>
+          <button class="tab-btn" data-tab="netlist">
+            <span class="material-icons" style="font-size: 18px; margin-right: 6px;">description</span>Text Netlist
+          </button>
         </div>
 
         <!-- Tab 1: Image Upload -->
         <div class="tab-content active" id="tab-image">
           <div class="drop-zone" id="image-drop-zone">
-            <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+            <span class="material-icons drop-icon" style="font-size: 36px;">cloud_upload</span>
             <p class="drop-text">Drag & drop your simulator screenshot or click to browse</p>
             <input type="file" id="image-input" accept="image/*" class="hide">
             <div id="image-preview-container" class="hide">
@@ -56,11 +62,15 @@
             </div>
           </div>
           <div class="camera-actions">
-            <button id="webcam-btn" class="btn secondary-btn"><i class="fa-solid fa-camera"></i> Use Webcam</button>
+            <button id="webcam-btn" class="btn secondary-btn">
+              <span class="material-icons" style="font-size: 18px; margin-right: 6px;">photo_camera</span>Use Webcam
+            </button>
           </div>
           <div class="camera-stream-container hide" id="camera-container">
             <video id="video" autoplay playsinline></video>
-            <button id="capture-btn" class="btn primary-btn"><i class="fa-solid fa-camera-retro"></i> Capture Snapshot</button>
+            <button id="capture-btn" class="btn primary-btn">
+              <span class="material-icons" style="font-size: 18px; margin-right: 6px;">add_a_photo</span>Capture Snapshot
+            </button>
           </div>
         </div>
 
@@ -70,29 +80,29 @@
             <label for="netlist-textarea">Enter Circuit Connections (Netlist Format):</label>
             <textarea id="netlist-textarea" placeholder="Battery 9V (Pos: pinA, Neg: pinB)&#10;Resistor 220 (Pin1: pinA, Pin2: pinC)&#10;LED (Anode: pinC, Cathode: pinB)"></textarea>
             <div class="netlist-help">
-              <i class="fa-solid fa-circle-info"></i> Format: <code>Component (PinName: Node, ...)</code>
+              <span class="material-icons" style="font-size: 16px; margin-right: 4px; vertical-align: middle;">info</span>Format: <code>Component (PinName: Node, ...)</code>
             </div>
           </div>
         </div>
 
         <!-- Submit Trigger -->
         <button id="analyze-btn" class="btn action-btn" disabled>
-          <i class="fa-solid fa-wand-magic-sparkles"></i> Run AI Diagnosis
+          <span class="material-icons" style="font-size: 20px; margin-right: 6px;">psychology</span>Run AI Diagnosis
         </button>
 
         <!-- Judge Demonstration Panel -->
         <div class="judge-demo-panel">
-          <h3><i class="fa-solid fa-gavel"></i> Judge Demo Desk</h3>
+          <h3><span class="material-icons" style="color: var(--accent-purple); font-size: 20px; margin-right: 6px;">gavel</span>Judge Demo Desk</h3>
           <p class="demo-sub">Click templates to instantly inject test circuits (no webcam required):</p>
           <div class="demo-buttons">
             <button class="demo-btn error-btn" data-demo="incorrect-led">
-              <i class="fa-solid fa-triangle-exclamation"></i> Reversed LED Circuit
+              <span class="material-icons">warning</span>Reversed LED Circuit
             </button>
             <button class="demo-btn error-btn" data-demo="short-circuit">
-              <i class="fa-solid fa-fire-flame-curved"></i> Short Circuit Hazard
+              <span class="material-icons">flash_on</span>Short Circuit Hazard
             </button>
             <button class="demo-btn success-btn" data-demo="correct-led">
-              <i class="fa-solid fa-circle-check"></i> Correct Circuit Loop
+              <span class="material-icons">check_circle</span>Correct Circuit Loop
             </button>
           </div>
         </div>
@@ -101,7 +111,7 @@
       <!-- Column 2: AI Diagnostic Output -->
       <section class="panel-card output-panel">
         <div class="panel-header">
-          <h2><i class="fa-solid fa-graduation-cap"></i> AI Tutor Feedback</h2>
+          <h2><span class="material-icons" style="color: var(--accent-purple); font-size: 22px; margin-right: 8px;">school</span>AI Tutor Feedback</h2>
           <div class="status-indicator-wrapper">
             <span id="diagnostic-status-text">Awaiting Input</span>
             <div class="status-dot status-idle" id="diagnostic-status-dot"></div>
@@ -117,7 +127,7 @@
         <!-- Diagnostic Feedback Content -->
         <div class="feedback-container" id="feedback-placeholder">
           <div class="empty-state">
-            <i class="fa-solid fa-bolt empty-icon"></i>
+            <span class="material-icons empty-icon" style="font-size: 48px; color: #374151;">bolt</span>
             <h3>No circuit analyzed yet</h3>
             <p>Upload a simulator screenshot, take a webcam photo, or choose a pre-configured scenario from the Judge Demo Panel to begin.</p>
           </div>
@@ -127,13 +137,13 @@
         <div class="feedback-container hide" id="feedback-content">
           <!-- Main status banner -->
           <div class="status-banner" id="feedback-status-banner">
-            <i class="fa-solid" id="feedback-status-icon"></i>
+            <span id="feedback-status-icon"></span>
             <span id="feedback-status-title">Diagnosis Complete</span>
           </div>
 
           <!-- Section: Detected Components -->
           <div class="feedback-section">
-            <h3><i class="fa-solid fa-boxes-stacked"></i> Detected Components</h3>
+            <h3><span class="material-icons" style="font-size: 18px; margin-right: 6px; color: var(--accent-purple);">inventory_2</span>Detected Components</h3>
             <div class="component-tags" id="component-tags-container">
               <!-- Component tags go here -->
             </div>
@@ -141,7 +151,7 @@
 
           <!-- Section: Detailed Errors -->
           <div class="feedback-section" id="errors-section">
-            <h3><i class="fa-solid fa-circle-exclamation"></i> Identified Errors</h3>
+            <h3><span class="material-icons" style="font-size: 18px; margin-right: 6px; color: var(--status-error);">error_outline</span>Identified Errors</h3>
             <div class="errors-list" id="errors-container">
               <!-- Errors go here -->
             </div>
@@ -149,7 +159,7 @@
 
           <!-- Section: Action Guide Steps -->
           <div class="feedback-section">
-            <h3><i class="fa-solid fa-list-check"></i> Remediation Checklist</h3>
+            <h3><span class="material-icons" style="font-size: 18px; margin-right: 6px; color: var(--accent-purple);">playlist_add_check</span>Remediation Checklist</h3>
             <div class="checklist-container" id="checklist-container">
               <!-- Checklist steps go here -->
             </div>
@@ -160,7 +170,7 @@
       <!-- Column 3: History Sidebar -->
       <aside class="panel-card history-sidebar">
         <div class="panel-header">
-          <h2><i class="fa-solid fa-clock-rotate-left"></i> Session History</h2>
+          <h2><span class="material-icons" style="color: var(--accent-purple); font-size: 20px; margin-right: 6px;">history</span>Session History</h2>
         </div>
         <div class="history-list" id="history-container">
           <div class="empty-state-history">

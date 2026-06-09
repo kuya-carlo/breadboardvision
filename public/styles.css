@@ -46,6 +46,13 @@ body {
   overflow-x: hidden;
 }
 
+.material-icons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
 /* App Layout */
 .app-container {
   display: flex;
@@ -159,7 +166,7 @@ body {
   color: #ffffff;
 }
 
-.panel-header h2 i {
+.panel-header h2 .material-icons {
   color: var(--accent-purple);
 }
 
@@ -448,11 +455,11 @@ body {
   background: rgba(16, 185, 129, 0.05);
 }
 
-.demo-btn.error-btn i {
+.demo-btn.error-btn .material-icons {
   color: var(--status-error);
 }
 
-.demo-btn.success-btn i {
+.demo-btn.success-btn .material-icons {
   color: var(--status-correct);
 }
 
@@ -565,7 +572,7 @@ body {
   padding-bottom: 6px;
 }
 
-.feedback-section h3 i {
+.feedback-section h3 .material-icons {
   color: var(--accent-purple);
 }
 
@@ -657,8 +664,8 @@ body {
   flex-shrink: 0;
 }
 
-.checklist-checkbox i {
-  font-size: 11px;
+.checklist-checkbox .material-icons {
+  font-size: 12px;
   color: #ffffff;
   display: none;
 }
@@ -668,8 +675,8 @@ body {
   border-color: var(--status-correct);
 }
 
-.checklist-item.checked .checklist-checkbox i {
-  display: block;
+.checklist-item.checked .checklist-checkbox .material-icons {
+  display: inline-flex;
 }
 
 .checklist-text {
