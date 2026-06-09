@@ -55,3 +55,32 @@ npm run dev
 ```
 
 Open your browser to `http://localhost:3000` to start debugging circuits.
+
+### 🐳 Run with Docker / Podman
+You can build and spin up the container directly using single CLI commands:
+
+```bash
+# Build the image
+docker build -f deployment/Dockerfile -t breadboard-vision .
+
+# Run the container with persistent volume mount
+docker run -d \
+  -p 3000:3000 \
+  -e GEMINI_API_KEY=your_api_key_here \
+  -e DATABASE_PATH=/data/database.sqlite \
+  -v breadboard-vision-data:/data \
+  --name breadboard-vision-app \
+  breadboard-vision
+```
+
+### 🐙 Run with Docker Compose
+For simplified environment setups:
+
+```bash
+# Expose your API key in environment
+export GEMINI_API_KEY=your_api_key_here
+
+# Start the service
+docker compose up -d
+```
+
