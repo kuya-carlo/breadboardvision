@@ -1,0 +1,22 @@
+{
+  "name": "breadboard-vision",
+  "version": "1.0.0",
+  "description": "An AI-powered virtual circuit tutor designed to help introductory engineering students troubleshoot physical and virtual circuits.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "jest",
+    "init-db": "node db/init.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  }
+}
