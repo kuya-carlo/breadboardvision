@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BreadboardVision - AI Circuit Tutor</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <script src="https://kit.fontawesome.com/0c13a9f144.js" crossorigin="anonymous"></script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <i class="fa-solid fa-microchip glowing-icon"></i>
+        <h1>BreadboardVision</h1>
+        <span class="badge" id="mode-badge"><i class="fa-solid fa-circle-nodes"></i> AI Tutor Mode</span>
+      </div>
+      <div class="header-controls">
+        <div class="session-info">
+          <i class="fa-solid fa-user-graduate"></i>
+          <span>Session ID: <strong id="display-session-id">Loading...</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="workspace-grid">
+      
+      <!-- Column 1: Inputs & Judge Panel -->
+      <section class="panel-card input-control-panel">
+        <div class="panel-header">
+          <h2><i class="fa-solid fa-sliders"></i> Diagnostic Input</h2>
+        </div>
+        
+        <!-- Toggle Tabs -->
+        <div class="tab-buttons">
+          <button class="tab-btn active" data-tab="image"><i class="fa-solid fa-image"></i> Image Upload</button>
+          <button class="tab-btn" data-tab="netlist"><i class="fa-solid fa-code"></i> Text Netlist</button>
+        </div>
+
+        <!-- Tab 1: Image Upload -->
+        <div class="tab-content active" id="tab-image">
+          <div class="drop-zone" id="image-drop-zone">
+            <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+            <p class="drop-text">Drag & drop your simulator screenshot or click to browse</p>
+            <input type="file" id="image-input" accept="image/*" class="hide">
+            <div id="image-preview-container" class="hide">
+              <img id="image-preview" src="" alt="Circuit Preview">
+            </div>
+          </div>
+          <div class="camera-actions">
+            <button id="webcam-btn" class="btn secondary-btn"><i class="fa-solid fa-camera"></i> Use Webcam</button>
+          </div>
+          <div class="camera-stream-container hide" id="camera-container">
+            <video id="video" autoplay playsinline></video>
+            <button id="capture-btn" class="btn primary-btn"><i class="fa-solid fa-camera-retro"></i> Capture Snapshot</button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Text Netlist -->
+        <div class="tab-content" id="tab-netlist">
+          <div class="netlist-form">
+            <label for="netlist-textarea">Enter Circuit Connections (Netlist Format):</label>
+            <textarea id="netlist-textarea" placeholder="Battery 9V (Pos: pinA, Neg: pinB)&#10;Resistor 220 (Pin1: pinA, Pin2: pinC)&#10;LED (Anode: pinC, Cathode: pinB)"></textarea>
+            <div class="netlist-help">
+              <i class="fa-solid fa-circle-info"></i> Format: <code>Component (PinName: Node, ...)</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Trigger -->
+        <button id="analyze-btn" class="btn action-btn" disabled>
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Run AI Diagnosis
+        </button>
+
+        <!-- Judge Demonstration Panel -->
+        <div class="judge-demo-panel">
+          <h3><i class="fa-solid fa-gavel"></i> Judge Demo Desk</h3>
+          <p class="demo-sub">Click templates to instantly inject test circuits (no webcam required):</p>
+          <div class="demo-buttons">
+            <button class="demo-btn error-btn" data-demo="incorrect-led">
+              <i class="fa-solid fa-triangle-exclamation"></i> Reversed LED Circuit
+            </button>
+            <button class="demo-btn error-btn" data-demo="short-circuit">
+              <i class="fa-solid fa-fire-flame-curved"></i> Short Circuit Hazard
+            </button>
+            <button class="demo-btn success-btn" data-demo="correct-led">
+              <i class="fa-solid fa-circle-check"></i> Correct Circuit Loop
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Column 2: AI Diagnostic Output -->
+      <section class="panel-card output-panel">
+        <div class="panel-header">
+          <h2><i class="fa-solid fa-graduation-cap"></i> AI Tutor Feedback</h2>
+          <div class="status-indicator-wrapper">
+            <span id="diagnostic-status-text">Awaiting Input</span>
+            <div class="status-dot status-idle" id="diagnostic-status-dot"></div>
+          </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay hide" id="loading-overlay">
+          <div class="spinner"></div>
+          <p>Professor AI is analyzing your circuit...</p>
+        </div>
+
+        <!-- Diagnostic Feedback Content -->
+        <div class="feedback-container" id="feedback-placeholder">
+          <div class="empty-state">
+            <i class="fa-solid fa-boltempty empty-icon"></i>
+            <h3>No circuit analyzed yet</h3>
+            <p>Upload a simulator screenshot, take a webcam photo, or choose a pre-configured scenario from the Judge Demo Panel to begin.</p>
+          </div>
+        </div>
+
+        <!-- Real Diagnostic Feedback Layout -->
+        <div class="feedback-container hide" id="feedback-content">
+          <!-- Main status banner -->
+          <div class="status-banner" id="feedback-status-banner">
+            <i class="fa-solid" id="feedback-status-icon"></i>
+            <span id="feedback-status-title">Diagnosis Complete</span>
+          </div>
+
+          <!-- Section: Detected Components -->
+          <div class="feedback-section">
+            <h3><i class="fa-solid fa-boxes-stacked"></i> Detected Components</h3>
+            <div class="component-tags" id="component-tags-container">
+              <!-- Component tags go here -->
+            </div>
+          </div>
+
+          <!-- Section: Detailed Errors -->
+          <div class="feedback-section" id="errors-section">
+            <h3><i class="fa-solid fa-circle-exclamation"></i> Identified Errors</h3>
+            <div class="errors-list" id="errors-container">
+              <!-- Errors go here -->
+            </div>
+          </div>
+
+          <!-- Section: Action Guide Steps -->
+          <div class="feedback-section">
+            <h3><i class="fa-solid fa-list-check"></i> Remediation Checklist</h3>
+            <div class="checklist-container" id="checklist-container">
+              <!-- Checklist steps go here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Column 3: History Sidebar -->
+      <aside class="panel-card history-sidebar">
+        <div class="panel-header">
+          <h2><i class="fa-solid fa-clock-rotate-left"></i> Session History</h2>
+        </div>
+        <div class="history-list" id="history-container">
+          <div class="empty-state-history">
+            <p>No past submissions in this session.</p>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
