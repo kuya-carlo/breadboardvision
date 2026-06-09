@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-slim
 
 # Set database path to the persistent volume mount point
 ENV DATABASE_PATH=/data/database.sqlite
@@ -7,11 +7,9 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-# Copy package configurations
+# Copy package configurations and host-built node_modules
 COPY package*.json ./
-
-# Install only production dependencies (Alpine build tool dependencies are handled cleanly)
-RUN npm ci --only=production
+COPY node_modules/ ./node_modules/
 
 # Copy application files
 COPY index.js ./index.js
